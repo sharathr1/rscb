@@ -3,7 +3,7 @@ package com.ge.dt.digitaltwin.service;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericService <T, D, PK extends Serializable> {
+public interface GenericDao <T, D, PK extends Serializable> {
 
 	public D findById(PK id);
 	public List<D> findAll();

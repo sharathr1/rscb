@@ -6,6 +6,6 @@ import com.ge.dt.digitaltwin.domain.ModalityCust;
 import com.ge.dt.digitaltwin.domain.ModalityService;
 
 @Service
-public class ModalityServiceImpl extends GenericServiceImpl<ModalityService, ModalityService, Long> implements IModalityService{
+public class ModalityServiceImpl extends GenericDaoImpl<ModalityService, ModalityService, Long> implements IModalityService{
 
 }

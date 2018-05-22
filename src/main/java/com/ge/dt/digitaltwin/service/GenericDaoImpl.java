@@ -11,15 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-public abstract class GenericServiceImpl<T, D, PK extends Serializable>
-		implements GenericService<T, D, PK> {
-	private static final Logger log = (Logger) LoggerFactory.getLogger(GenericServiceImpl.class);
+public abstract class GenericDaoImpl<T, D, PK extends Serializable>
+		implements GenericDao<T, D, PK> {
+	private static final Logger log = (Logger) LoggerFactory.getLogger(GenericDaoImpl.class);
 	
 	@Autowired
 	private  JpaRepository<T, PK> dao;
@@ -29,12 +30,11 @@ public abstract class GenericServiceImpl<T, D, PK extends Serializable>
 	protected Class<T> entityClass;
     protected Class<D> dtoClass;
 	
-    public GenericServiceImpl() {
+    public GenericDaoImpl() {
 		super();
 	    ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
 	    this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 	    this.dtoClass = (Class<D>) genericSuperclass.getActualTypeArguments()[1];
-
 	}
 
     @Transactional(readOnly=true)
@@ -74,4 +74,5 @@ public abstract class GenericServiceImpl<T, D, PK extends Serializable>
     	}
     	
 	}
+    
 }
