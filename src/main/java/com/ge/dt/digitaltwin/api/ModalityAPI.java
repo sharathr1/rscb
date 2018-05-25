@@ -5,17 +5,19 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ge.dt.digitaltwin.domain.ModalityCust;
 import com.ge.dt.digitaltwin.domain.ModalityService;
 import com.ge.dt.digitaltwin.service.IModalityCust;
 import com.ge.dt.digitaltwin.service.IModalityService;
 
 @RestController
-public class ModalityAPI {
+@CrossOrigin("*")
+public class ModalityAPI<T> {
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -35,12 +37,30 @@ public class ModalityAPI {
 	 * @param name
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping("/modality")
-	public List<ModalityCust> getAllModality(@RequestParam("modality") String modality,
-			@RequestParam("customerName") String customerName, @RequestParam("age") String age,
-			@RequestParam("region") String region) {
+	public List<T> getAllModality(@RequestParam(value = "modality", required = false,defaultValue = "") String modality,
+			@RequestParam(value = "customerName", required = false ,defaultValue = "") String customerName,
+			@RequestParam(value = "age", required = false,defaultValue = "") String age,
+			@RequestParam(value = "region", required = false,defaultValue = "") String region,
+			@RequestParam(value = "sysCovLevWarrantyc", required = false,defaultValue = "") String sysCovLevWarrantyc,
+			@RequestParam(value = "fetchAll", required = false,defaultValue = "") String fetchAll) {
+		if (StringUtils.hasText(fetchAll)) {
+			if (fetchAll.equalsIgnoreCase("customer")) {
+				return (List<T>) modalityCust.findAll();
+			} else {
+				return (List<T>) modalityService.findAll();
+			}
+		} else {
 
-		return modalityCust.findAll();
+			if (StringUtils.hasText(customerName)) {
+				return (List<T>) modalityCust.getModality(modality, customerName);
+			} else if (StringUtils.hasText(customerName) || StringUtils.hasText(modality) ||StringUtils.hasText(age)
+					|| StringUtils.hasText(sysCovLevWarrantyc) || StringUtils.hasText(region)) {
+				return (List<T>) modalityService.getModality(modality, age, region, sysCovLevWarrantyc);
+			}
+			return null;
+		}
 	}
 
 	@GetMapping("/modality2")

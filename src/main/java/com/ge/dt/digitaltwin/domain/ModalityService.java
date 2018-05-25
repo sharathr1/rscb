@@ -1,5 +1,7 @@
 package com.ge.dt.digitaltwin.domain;
 
+import java.util.function.Predicate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,11 +15,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-
 @AllArgsConstructor
 @Table(name = "ModalityService", schema = "digitaltwin")
 public class ModalityService extends BaseEntity {
-	public ModalityService(){
+	public ModalityService() {
 		super();
 	}
 
@@ -33,6 +34,16 @@ public class ModalityService extends BaseEntity {
 	@Column(name = "system_coverage_level_warrantyc")
 	private String systemCoverageLevelWarrantyc;
 
-	@Column(name = "ib_count")
-	private int ibCount;
+	@Column(name = "ib_count", nullable = true)
+	private Integer ibCount;
+
+	/**
+	 * NOT IN USE
+	 * 
+	 * @return
+	 */
+	public Predicate<ModalityService> getAgePredicate() {
+		Predicate<ModalityService> ageP = (Predicate<ModalityService>) u -> u.getAge().equalsIgnoreCase(age);
+		return ageP;
+	}
 }
