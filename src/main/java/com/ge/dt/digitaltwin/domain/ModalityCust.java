@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) General Electric Company 2018 . All Rights Reserved.
+ * @author 999951/502593533 : Sharath R
+ */
 package com.ge.dt.digitaltwin.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +19,13 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-@Table(name = "ModalityCust", schema = "digitaltwin")
+@Table(name = "ModalityCust", schema = "datafabric_dea")
 public class ModalityCust extends BaseEntity{
+	
 	public ModalityCust(){
 		super();
 	}
-
+	
 	@Column(name = "modality",nullable = true)
 	private String modality;
 	
@@ -32,6 +37,5 @@ public class ModalityCust extends BaseEntity{
 
 	@Column(name = "rnk",nullable = false, columnDefinition ="bigint(20) default 0")
 	private Integer rnk;
-
 	
 }

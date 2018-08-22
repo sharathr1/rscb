@@ -1,8 +1,6 @@
 /**
- * 
+ * Copyright (C) General Electric Company 2018 . All Rights Reserved.
+ * @author 999951/502593533 : Sharath R
  */
-/**
- * @author Sharath Ranganath
- *
- */
+
 package com.ge.dt.digitaltwin.api;

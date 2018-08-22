@@ -1,16 +1,22 @@
+/**
+ * Copyright (C) General Electric Company 2018 . All Rights Reserved.
+ * @author 999951/502593533 : Sharath R
+ */
 package com.ge.dt.digitaltwin.domain;
 
 import static javax.persistence.GenerationType.AUTO;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class BaseEntity {
 	@Id
-	@GeneratedValue(strategy = AUTO)
+//	@GeneratedValue(strategy = AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name="id" , unique=true,nullable=false)
     protected Long id;
 
